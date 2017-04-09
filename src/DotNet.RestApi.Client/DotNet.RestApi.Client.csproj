@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Wallsmedia Ltd</Authors>
+    <Company>Wallsmedia Ltd</Company>
+    <Product></Product>
+    <Description></Description>
+    <Copyright>2017-* © Wallsmedia LTD. All rights reserved.</Copyright>
+    <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client.git</RepositoryUrl>
+    <PackageReleaseNotes>Release only for .Net Core</PackageReleaseNotes>
+    <PackageTags>rest;httpclient;</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="System.Runtime.Serialization.Xml" Version="4.3.0-*" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1-*" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0-*" />
+  </ItemGroup>
+</Project>
