@@ -51,13 +51,15 @@ namespace RestApiClentTest
 
                 RestApiClient client = new RestApiClient(baseUri);
 
-                PurchaseOrder testObj = new PurchaseOrder();
+                PurchaseOrder sendObj = new PurchaseOrder();
 
-                HttpResponseMessage response = client.SendJsonRequest(HttpMethod.Post, new Uri("res", UriKind.Relative), testObj).Result;
+                HttpResponseMessage response = client.SendJsonRequest(HttpMethod.Post, new Uri("res", UriKind.Relative), sendObj).Result;
 
-                string send = RestApiClientExtensions.GetJsonString(testObj);
+                string send = RestApiClientExtensions.GetJsonString(sendObj);
                 string json = response.Content.ReadAsStringAsync().Result;
                 string rest = RequestGRabber.Message;
+
+                PurchaseOrder respObj = response.DeseriaseJsonResponse<PurchaseOrder>();
 
                 Assert.Equal(send, json);
                 Assert.Equal(rest, json);
@@ -76,11 +78,13 @@ namespace RestApiClentTest
 
                 RestApiClient client = new RestApiClient(baseUri);
 
-                PurchaseOrder testObj = new PurchaseOrder();
+                PurchaseOrder sendObj = new PurchaseOrder();
 
-                HttpResponseMessage response = client.SendXmlRequest(HttpMethod.Post, new Uri("res", UriKind.Relative), testObj).Result;
+                HttpResponseMessage response = client.SendXmlRequest(HttpMethod.Post, new Uri("res", UriKind.Relative), sendObj).Result;
 
-                string send = RestApiClientExtensions.GetXmlString(testObj);
+                PurchaseOrder respObj = response.DeseriaseXmlResponse<PurchaseOrder>();
+
+                string send = RestApiClientExtensions.GetXmlString(sendObj);
                 string xml = response.Content.ReadAsStringAsync().Result;
                 string rest = RequestGRabber.Message;
 
@@ -102,11 +106,13 @@ namespace RestApiClentTest
 
                 RestApiClient client = new RestApiClient(baseUri);
 
-                PurchaseOrder testObj = new PurchaseOrder();
+                PurchaseOrder sendObj = new PurchaseOrder();
 
-                HttpResponseMessage response = client.SendDcXmlRequest(HttpMethod.Post, new Uri("res", UriKind.Relative), testObj).Result;
+                HttpResponseMessage response = client.SendDcXmlRequest(HttpMethod.Post, new Uri("res", UriKind.Relative), sendObj).Result;
 
-                string send = RestApiClientExtensions.GetDcXmlString(testObj);
+                PurchaseOrder respObj = response.DeseriaseDcXmlResponse<PurchaseOrder>();
+
+                string send = RestApiClientExtensions.GetDcXmlString(sendObj);
                 string xml = response.Content.ReadAsStringAsync().Result;
                 string rest = RequestGRabber.Message;
 

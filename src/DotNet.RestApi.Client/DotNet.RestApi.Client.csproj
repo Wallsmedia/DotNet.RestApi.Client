@@ -8,7 +8,7 @@
     <Authors>Wallsmedia Ltd</Authors>
     <Company>Wallsmedia Ltd</Company>
     <Product></Product>
-    <Description></Description>
+    <Description>Dot NET Core Web Rest API simple client.</Description>
     <Copyright>2017-* © Wallsmedia LTD. All rights reserved.</Copyright>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client</PackageProjectUrl>

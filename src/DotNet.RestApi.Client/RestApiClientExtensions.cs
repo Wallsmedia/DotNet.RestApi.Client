@@ -113,7 +113,7 @@ namespace DotNet.RestApi.Client
         {
             DataContractSerializer serializer = new DataContractSerializer(typeof(T));
             using (var str = new StringReader(dcXml))
-            using (var xml = XmlReader.Create(dcXml))
+            using (var xml = XmlReader.Create(str))
             {
                 T res = (T)serializer.ReadObject(xml);
                 return res;
