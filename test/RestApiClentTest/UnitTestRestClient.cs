@@ -68,7 +68,9 @@ namespace RestApiClentTest
 
                 Assert.Equal(send, json);
                 Assert.Equal(rest, json);
-                Assert.Equal("CustomHeaderValue", response.Headers.GetValues("CustomHeader").First());
+                string test = response.Headers.GetValues("CustomHeader").First();
+
+                Assert.Equal("CustomHeaderValue", test);
 
             }
         }

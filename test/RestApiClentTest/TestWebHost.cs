@@ -5,7 +5,7 @@
 // Wallsmedia LTD 2015-2017:{Alexander Paskhin}
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Tests of Simple Rest API Client
-// Dot NET Core Rest API client
+// DotNET Core Rest API client
 
 using System;
 using System.Collections.Generic;
@@ -85,6 +85,11 @@ namespace RestApiClentTest
         {
             try
             {
+                foreach (var h in context.Request.Headers)
+                {
+                    context.Response.Headers.Add(h);
+                }
+
                 MemoryStream ms = new MemoryStream();
                 context.Request.Body.CopyTo(ms);
                 StreamReader sr = new StreamReader(ms);
@@ -93,11 +98,11 @@ namespace RestApiClentTest
                 ms.Position = 0;
                 ms.CopyTo(context.Response.Body);
                 context.Response.StatusCode = StatusCodes.Status200OK;
-
                 //await _next(context);
             }
-            catch
+            catch (Exception ex)
             {
+
             }
 
             return Task.CompletedTask;
