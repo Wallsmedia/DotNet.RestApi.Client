@@ -32,17 +32,21 @@ namespace DotNet.RestApi.Client
 
         Uri _baseUri;
         HttpClient _client;
+        Action<HttpRequestMessage> _configureRequst;
 
         CancellationTokenSource CancellationTokenSource { get; } = new CancellationTokenSource();
         public HttpClient Client { get => EnsureHttpClient(); set => _client = value; }
 
+        
         /// <summary>
         /// Client class constructor
         /// </summary>
         /// <param name="baseUri">The base Uri to the WEB API service</param>
-        public RestApiClient(Uri baseUri)
+        /// <param name="configureRequst">The optional conflagration delegate for the request message.</param>
+        public RestApiClient(Uri baseUri, Action<HttpRequestMessage> configureRequst = null)
         {
             _baseUri = baseUri;
+            _configureRequst = configureRequst;
         }
 
         /// <summary>
@@ -78,7 +82,6 @@ namespace DotNet.RestApi.Client
         }
 
 
-
         /// <summary>
         /// Sends REST API request in the XML format.
         /// </summary>
@@ -96,7 +99,7 @@ namespace DotNet.RestApi.Client
             }
             return SendXmlRequest(method, uri, serialized);
         }
-        
+
         /// <summary>
         /// Sends REST API request in the Data Contract XML format.
         /// </summary>
@@ -114,7 +117,7 @@ namespace DotNet.RestApi.Client
             }
             return SendXmlRequest(method, uri, serialized);
         }
-        
+
         /// <summary>
         /// Sends REST API request in the JSON format.
         /// </summary>
@@ -131,6 +134,7 @@ namespace DotNet.RestApi.Client
             request.RequestUri = uri;
             request.Content = new StringContent(json);
             request.Content.Headers.ContentType = ApplicationJson;
+            _configureRequst?.Invoke(request);
             return client.SendAsync(request, CancellationTokenSource.Token);
         }
 
@@ -150,6 +154,7 @@ namespace DotNet.RestApi.Client
             request.RequestUri = uri;
             request.Content = new StringContent(xml);
             request.Content.Headers.ContentType = ApplicationXml;
+            _configureRequst?.Invoke(request);
             return client.SendAsync(request, CancellationTokenSource.Token);
         }
 

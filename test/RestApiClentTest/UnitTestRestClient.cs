@@ -9,6 +9,7 @@
 
 using DotNet.RestApi.Client;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Threading;
@@ -49,7 +50,11 @@ namespace RestApiClentTest
                 Thread.Sleep(1000);
                 Uri baseUri = new Uri("http://localhost:15000");
 
-                RestApiClient client = new RestApiClient(baseUri);
+                RestApiClient client = new RestApiClient(baseUri, request =>
+                {
+                    request.Headers.Add("CustomHeader", "CustomHeaderValue");
+                }
+                );
 
                 PurchaseOrder sendObj = new PurchaseOrder();
 
@@ -63,6 +68,7 @@ namespace RestApiClentTest
 
                 Assert.Equal(send, json);
                 Assert.Equal(rest, json);
+                Assert.Equal("CustomHeaderValue", response.Headers.GetValues("CustomHeader").First());
 
             }
         }

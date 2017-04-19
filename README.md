@@ -23,7 +23,10 @@ Example how call with XML:
 
 ```
 Uri baseUri = new Uri("http://webServiceHost:15002");
-RestApiClient client = new RestApiClient(baseUri);
+RestApiClient client = new RestApiClient(baseUri, request =>
+   {
+      request.Headers.Add("CustomHeader", "CustomHeaderValue");
+   });
 
 PurchaseOrder sendObj = new PurchaseOrder();
 
