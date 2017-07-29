@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <!--<TargetFrameworks>netcoreapp1.1</TargetFrameworks>-->
+    <TargetFrameworks>net452;net462;net47;netcoreapp1.1</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -14,17 +15,25 @@
     <PackageProjectUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client.git</RepositoryUrl>
-    <PackageReleaseNotes>Release only for .Net Core</PackageReleaseNotes>
-    <PackageTags>rest;httpclient;</PackageTags>
+    <PackageReleaseNotes>Release not only for .Net Core , net452, net462, net47</PackageReleaseNotes>
+    <PackageTags>rest; httpclient;</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1</FileVersion>
+    <Version>1.0.2</Version>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <FileVersion>1.0.2</FileVersion>
   </PropertyGroup>
-  
+
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'netcoreapp1.1' and '$(TargetFramework)' != 'netcoreapp2.0'">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp1.1' or '$(TargetFramework)' == 'netcoreapp2.0'"> 
     <PackageReference Include="System.Runtime.Serialization.Xml" Version="4.3.0-*" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1-*" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0-*" />
   </ItemGroup>
+
 </Project>
