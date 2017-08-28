@@ -8,11 +8,12 @@
 // Dot NET Core Rest API client
 
 using System.Net.Http;
-using System.Runtime.Serialization;
-using System.IO;
-using System.Xml.Serialization;
-using Newtonsoft.Json;
 using System.Xml;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
+using System.IO;
+using Newtonsoft.Json;
+
 
 namespace DotNet.RestApi.Client
 {

@@ -40,15 +40,49 @@ namespace RestApiClentTest
 
     public class UnitTestRestClient
     {
+        [Fact]
+        public void SendJsonAbsolute()
+        {
+            using (TestWebHost host = new TestWebHost())
+            {
+                host.StarWebHost("http://*:15000");
+                Thread.Sleep(1000);
+                UriBuilder uriBuildr = new UriBuilder("http", "localhost", 15000, "res");
+                Uri baseUri = uriBuildr.Uri;
+
+                RestApiClient client = new RestApiClient(null, request =>
+                {
+                    request.Headers.Add("CustomHeader", "CustomHeaderValue");
+                }
+                );
+
+                PurchaseOrder sendObj = new PurchaseOrder();
+
+                HttpResponseMessage response = client.SendJsonRequest(HttpMethod.Post, baseUri, sendObj).Result;
+
+                string send = RestApiClientExtensions.GetJsonString(sendObj);
+                string json = response.Content.ReadAsStringAsync().Result;
+                string rest = RequestGRabber.Message;
+
+                PurchaseOrder respObj = response.DeseriaseJsonResponse<PurchaseOrder>();
+
+                Assert.Equal(send, json);
+                Assert.Equal(rest, json);
+                string test = response.Headers.GetValues("CustomHeader").First();
+
+                Assert.Equal("CustomHeaderValue", test);
+
+            }
+        }
 
         [Fact]
         public void SendJson()
         {
             using (TestWebHost host = new TestWebHost())
             {
-                host.StarWebHost("http://*:15000");
+                host.StarWebHost("http://*:15001");
                 Thread.Sleep(1000);
-                Uri baseUri = new Uri("http://localhost:15000");
+                Uri baseUri = new Uri("http://localhost:15001");
 
                 RestApiClient client = new RestApiClient(baseUri, request =>
                 {
@@ -80,9 +114,9 @@ namespace RestApiClentTest
         {
             using (TestWebHost host = new TestWebHost())
             {
-                host.StarWebHost("http://*:15001");
+                host.StarWebHost("http://*:15002");
                 Thread.Sleep(1000);
-                Uri baseUri = new Uri("http://localhost:15001");
+                Uri baseUri = new Uri("http://localhost:15002");
 
                 RestApiClient client = new RestApiClient(baseUri);
 
@@ -108,9 +142,9 @@ namespace RestApiClentTest
         {
             using (TestWebHost host = new TestWebHost())
             {
-                host.StarWebHost("http://*:15002");
+                host.StarWebHost("http://*:15003");
                 Thread.Sleep(1000);
-                Uri baseUri = new Uri("http://localhost:15002");
+                Uri baseUri = new Uri("http://localhost:15003");
 
                 RestApiClient client = new RestApiClient(baseUri);
 

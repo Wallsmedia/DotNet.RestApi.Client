@@ -9,13 +9,9 @@
 
 using System;
 using System.Net.Http;
-using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using System.IO;
-using System.Xml.Serialization;
 using System.Net.Http.Headers;
-using Newtonsoft.Json;
 
 namespace DotNet.RestApi.Client
 {
