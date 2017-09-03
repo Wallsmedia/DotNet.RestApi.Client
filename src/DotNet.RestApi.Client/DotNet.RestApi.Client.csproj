@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net452;netstandard1.6;netstandard2.0;</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client.git</RepositoryUrl>
-    <PackageReleaseNotes>Release only for netstandard2.0 &amp; includes gzip response support.</PackageReleaseNotes>
+    <PackageReleaseNotes>Release:  net452; netstandard1.6; netstandard2.0; includes gzip response support.</PackageReleaseNotes>
     <PackageTags>rest http client web service</PackageTags>
     <Version>2.0.1</Version>
     <AssemblyVersion>2.0.1</AssemblyVersion>
@@ -26,6 +26,16 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>../../.nupkgs</PackageOutputPath>
   </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.6' and '$(TargetFramework)' != 'netstandard2.0'">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+    <PackageReference Include="System.Runtime.Serialization.Xml" Version="4.3.0-*" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0-*" />
+  </ItemGroup>
+  
   
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
