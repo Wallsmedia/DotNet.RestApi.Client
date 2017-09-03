@@ -37,9 +37,11 @@ namespace RestApiClentTest
         {
             public void ConfigureServices(IServiceCollection services)
             {
+                services.AddResponseCompression();
             }
             public void Configure(IApplicationBuilder app)
             {
+                app.UseResponseCompression();
                 app.UseMiddleware<RequestGRabber>();
             }
         }

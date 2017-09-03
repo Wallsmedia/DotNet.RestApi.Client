@@ -13,7 +13,13 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using System.IO;
 using Newtonsoft.Json;
-
+using System.Threading.Tasks;
+using System.IO.Compression;
+using System.Linq;
+using System.Net;
+using System.Net.Http.Headers;
+using System;
+using System.Xml.Linq;
 
 namespace DotNet.RestApi.Client
 {
@@ -22,6 +28,70 @@ namespace DotNet.RestApi.Client
     /// </summary>
     public static class RestApiClientExtensions
     {
+        /// <summary>
+        /// Process response if it has gzip compression.
+        /// </summary>
+        /// <param name="response">The HTTP response message including the status code and data.</param>
+        /// <returns> The task object representing the asynchronous operation.</returns>
+        public static async Task<string> ReadContentAsStringGzip(this HttpResponseMessage response)
+        {
+            // Check whether response is compressed
+            if (response.Content.Headers.ContentEncoding.Any(x => x.ToLower() == "gzip"))
+            {
+                // Decompress gzip stream
+                using (var s = await response.Content.ReadAsStreamAsync())
+                {
+                    using (var decompressed = new GZipStream(s, CompressionMode.Decompress))
+                    {
+                        using (var reader = new StreamReader(decompressed))
+                        {
+                            return await reader.ReadToEndAsync();
+                        }
+                    }
+                }
+            }
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        /// <summary>
+        /// Process response if it has gzip compression.
+        /// </summary>
+        /// <param name="response">The HTTP response message including the status code and data.</param>
+        /// <returns> The stream that represents the content .</returns>
+        public static async Task<Stream> ReadContentAsStreamGzip(this HttpResponseMessage response)
+        {
+            // Check whether response is compressed
+            if (response.Content.Headers.ContentEncoding.Any(x => x.ToLower() == "gzip"))
+            {
+                // Decompress gzip stream
+                var s = await response.Content.ReadAsStreamAsync();
+                return new GZipStream(s, CompressionMode.Decompress);
+            }
+            return await response.Content.ReadAsStreamAsync();
+        }
+
+        /// <summary>
+        /// Applies the Accept-Encoding "gzip" for HTTP request. 
+        /// </summary>
+        /// <param name="request">The HTTP request message.</param>
+        public static void ApplyAcceptEncodingSettingGZip(HttpRequestMessage request)
+        {
+            const string methodName = "gzip";
+            bool found = false;
+            foreach (StringWithQualityHeaderValue encoding in request.Headers.AcceptEncoding)
+            {
+                if (methodName.Equals(encoding.Value, StringComparison.OrdinalIgnoreCase))
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                request.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue(methodName));
+            }
+        }
 
         /// <summary>
         /// Extracts the JSON object from the HTTP response message.
@@ -31,7 +101,7 @@ namespace DotNet.RestApi.Client
         /// <returns>The deserialized object of the type.</returns>
         public static T DeseriaseJsonResponse<T>(this HttpResponseMessage response)
         {
-            string respStr = response.Content.ReadAsStringAsync().Result;
+            string respStr = response.ReadContentAsStringGzip().Result;
             if (!string.IsNullOrWhiteSpace(respStr))
             {
                 return GetJsonObject<T>(respStr);
@@ -47,14 +117,14 @@ namespace DotNet.RestApi.Client
         /// <returns>The deserialized object of the type.</returns>
         public static T DeseriaseXmlResponse<T>(this HttpResponseMessage response)
         {
-            string respStr = response.Content.ReadAsStringAsync().Result;
+            string respStr = response.ReadContentAsStringGzip().Result;
             if (!string.IsNullOrWhiteSpace(respStr))
             {
                 return GetXmlObject<T>(respStr);
             }
             return default(T);
         }
-        
+
         /// <summary>
         /// Extracts the Data Contract XML object from the HTTP response message.
         /// </summary>
@@ -63,12 +133,26 @@ namespace DotNet.RestApi.Client
         /// <returns>The deserialized object of the type.</returns>
         public static T DeseriaseDcXmlResponse<T>(this HttpResponseMessage response)
         {
-            string respStr = response.Content.ReadAsStringAsync().Result;
+            string respStr = response.ReadContentAsStringGzip().Result;
             if (!string.IsNullOrWhiteSpace(respStr))
             {
                 return GetDcXmlObject<T>(respStr);
             }
             return default(T);
+        }
+
+        /// <summary>
+        /// Extracts the Data Contract XML object from the HTTP response message.
+        /// </summary>
+        /// <typeparam name="T">The expected type of the response object.</typeparam>
+        /// <param name="response">The HTTP response message including the status code and dataX.</param>
+        /// <returns>XML element.</returns>
+        public static XElement ParseXmlResponse(this HttpResponseMessage response)
+        {
+            using (var respStr = response.ReadContentAsStreamGzip().Result)
+            {
+                return  XElement.Load(respStr);
+            }
         }
 
         /// <summary>

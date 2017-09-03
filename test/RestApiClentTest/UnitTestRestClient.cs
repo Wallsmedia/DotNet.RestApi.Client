@@ -41,6 +41,44 @@ namespace RestApiClentTest
     public class UnitTestRestClient
     {
         [Fact]
+        public void SendJsonGzip()
+        {
+            using (TestWebHost host = new TestWebHost())
+            {
+                host.StarWebHost("http://*:14999");
+                Thread.Sleep(1000);
+                UriBuilder uriBuildr = new UriBuilder("http", "localhost", 14999, "res");
+                Uri baseUri = uriBuildr.Uri;
+
+                RestApiClient client = new RestApiClient(null, request =>
+                {
+                    request.Headers.Add("CustomHeader", "CustomHeaderValue");
+                    RestApiClientExtensions.ApplyAcceptEncodingSettingGZip(request);
+                }
+                );
+
+                PurchaseOrder sendObj = new PurchaseOrder();
+
+                HttpResponseMessage response = client.SendJsonRequest(HttpMethod.Post, baseUri, sendObj).Result;
+
+                string send = RestApiClientExtensions.GetJsonString(sendObj);
+                string json = response.ReadContentAsStringGzip().Result;
+                string rest = RequestGRabber.Message;
+
+                PurchaseOrder respObj = response.DeseriaseJsonResponse<PurchaseOrder>();
+
+                Assert.Equal(send, json);
+                Assert.Equal(rest, json);
+                string test = response.Headers.GetValues("CustomHeader").First();
+
+                Assert.Contains(response.Content.Headers.ContentEncoding, x => x.ToLower() == "gzip");
+
+                Assert.Equal("CustomHeaderValue", test);
+
+            }
+        }
+
+        [Fact]
         public void SendJsonAbsolute()
         {
             using (TestWebHost host = new TestWebHost())

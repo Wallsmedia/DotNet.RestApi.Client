@@ -36,6 +36,38 @@ PurchaseOrder respObj = response.DeseriaseXmlResponse<PurchaseOrder>();
 
 ```
 
+Example how call with XML with using gzip:
+
+```
+Uri baseUri = new Uri("http://webServiceHost:15002");
+RestApiClient client = new RestApiClient(baseUri, request =>
+   {
+      request.Headers.Add("CustomHeader", "CustomHeaderValue");
+      RestApiClientExtensions.ApplyAcceptEncodingSettingGZip(request);
+   });
+
+PurchaseOrder sendObj = new PurchaseOrder();
+
+HttpResponseMessage response = client.SendXmlRequest(HttpMethod.Post, new Uri("res", UriKind.Relative), sendObj).Result;
+
+PurchaseOrder respObj = response.DeseriaseXmlResponse<PurchaseOrder>();
+
+```
+Where Web Service should have:
+```
+ public void ConfigureServices(IServiceCollection services)
+ {
+ ...
+     services.AddResponseCompression();
+ ...
+ }
+ public void Configure(IApplicationBuilder app)
+ {
+ ...
+     app.UseResponseCompression();
+ ...
+ }
+```
 
 Example how call with Data Contract XML:
 
@@ -50,7 +82,6 @@ HttpResponseMessage response = client.SendDcXmlRequest(HttpMethod.Post, new Uri(
 PurchaseOrder respObj = response.DeseriaseDcXmlResponse<PurchaseOrder>();
 
 ```
-
 
 Where the Models:
 

@@ -14,11 +14,11 @@
     <PackageProjectUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client.git</RepositoryUrl>
-    <PackageReleaseNotes>Release  only for netstandard2.0</PackageReleaseNotes>
+    <PackageReleaseNotes>Release only for netstandard2.0 &amp; includes gzip response support.</PackageReleaseNotes>
     <PackageTags>rest http client web service</PackageTags>
-    <Version>2.0.0</Version>
-    <AssemblyVersion>2.0.0</AssemblyVersion>
-    <FileVersion>2.0.0</FileVersion>
+    <Version>2.0.1</Version>
+    <AssemblyVersion>2.0.1</AssemblyVersion>
+    <FileVersion>2.0.1</FileVersion>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
