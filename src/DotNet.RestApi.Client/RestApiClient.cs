@@ -16,7 +16,7 @@ using System.Net.Http.Headers;
 namespace DotNet.RestApi.Client
 {
     /// <summary>
-    /// Simple WEB Rest API client.
+    /// Simple REST API client.
     /// </summary>
     public class RestApiClient : IDisposable
     {
@@ -30,12 +30,19 @@ namespace DotNet.RestApi.Client
         HttpClient _client;
         Action<HttpRequestMessage> _configureRequst;
 
-        CancellationTokenSource CancellationTokenSource { get; } = new CancellationTokenSource();
+        /// <summary>
+        /// Cancellation token source. It can be used to cancel send operation.
+        /// </summary>
+        public CancellationTokenSource CancellationTokenSource { get; } = new CancellationTokenSource();
+
+        /// <summary>
+        /// Gets the underling <see cref="HttpClient"/> client.
+        /// </summary>
         public HttpClient Client { get => EnsureHttpClient(); set => _client = value; }
 
-        
+
         /// <summary>
-        /// Client class constructor
+        /// Constructs the simple Rest WEB API client.
         /// </summary>
         /// <param name="baseUri">The base Uri to the WEB API service</param>
         /// <param name="configureRequst">The optional conflagration delegate for the request message.</param>
@@ -60,13 +67,13 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
-        /// Sends REST API request in the JSON format.
+        /// Sends the JSON REST WEB API request.
         /// </summary>
         /// <typeparam name="T">The generic object type.</typeparam>
         /// <param name="method">The standard HTTP method.</param>
-        /// <param name="uri">The uniform resource identifier (URI) to the REST  Api resource.</param>
+        /// <param name="uri">The uniform resource identifier (URI) to the REST WEB resource.</param>
         /// <param name="json">The class object instance to send.</param>
-        /// <returns>Returns Task<HttpResponseMessage> task object representing the asynchronous operation.</returns>
+        /// <returns>Returns <see cref="HttpResponseMessage"/> task object representing the asynchronous operation.</returns>
         public Task<HttpResponseMessage> SendJsonRequest<T>(HttpMethod method, Uri uri, T json)
         {
             string serialized = string.Empty;
@@ -79,13 +86,13 @@ namespace DotNet.RestApi.Client
 
 
         /// <summary>
-        /// Sends REST API request in the XML format.
+        /// Sends the XML REST WEB API request.
         /// </summary>
         /// <typeparam name="T">The generic object type.</typeparam>
         /// <param name="method">The standard HTTP method.</param>
-        /// <param name="uri">The uniform resource identifier (URI) to the REST  Api resource.</param>
+        /// <param name="uri">The uniform resource identifier (URI) to the REST WEB resource.</param>
         /// <param name="xml">The class object instance to send.</param>
-        /// <returns>Returns Task<HttpResponseMessage> task object representing the asynchronous operation.</returns>
+        /// <returns>Returns <see cref="HttpResponseMessage"/> task object representing the asynchronous operation.</returns>
         public Task<HttpResponseMessage> SendXmlRequest<T>(HttpMethod method, Uri uri, T xml)
         {
             string serialized = string.Empty;
@@ -97,13 +104,13 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
-        /// Sends REST API request in the Data Contract XML format.
+        /// Sends the Data Contract XML REST WEB API request.
         /// </summary>
         /// <typeparam name="T">The generic object type.</typeparam>
         /// <param name="method">The standard HTTP method.</param>
-        /// <param name="uri">The uniform resource identifier (URI) to the REST  Api resource.</param>
+        /// <param name="uri">The uniform resource identifier (URI) to the REST WEB resource.</param>
         /// <param name="dcxml">The class object instance to send.</param>
-        /// <returns>Returns Task<HttpResponseMessage> task object representing the asynchronous operation.</returns>
+        /// <returns>Returns <see cref="HttpResponseMessage"/> task object representing the asynchronous operation.</returns>
         public Task<HttpResponseMessage> SendDcXmlRequest<T>(HttpMethod method, Uri uri, T dcxml)
         {
             string serialized = string.Empty;
@@ -115,12 +122,12 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
-        /// Sends REST API request in the JSON format.
+        /// Sends the XML REST WEB API request.
         /// </summary>
         /// <param name="method">The standard HTTP method.</param>
-        /// <param name="uri">The uniform resource identifier (URI) to the REST  Api resource.</param>
-        /// <param name="json">The serialized class object instance with JSON serializer.</param>
-        /// <returns>Returns Task<HttpResponseMessage> task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The uniform resource identifier (URI) to the REST  WEB resource.</param>
+        /// <param name="json">The JSON string to send.</param>
+        /// <returns>Returns <see cref="HttpResponseMessage"/> task object representing the asynchronous operation.</returns>
         public Task<HttpResponseMessage> SendJsonRequest(HttpMethod method, Uri uri, string json)
         {
             var client = EnsureHttpClient();
@@ -135,12 +142,12 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
-        /// Sends REST API request in the XML format.
+        /// Sends the XML REST API request.
         /// </summary>
         /// <param name="method">The standard HTTP method.</param>
-        /// <param name="uri">The uniform resource identifier (URI) to the REST  Api resource.</param>
-        /// <param name="xml">The serialized class object instance with XML serializer.</param>
-        /// <returns>Returns Task<HttpResponseMessage> task object representing the asynchronous operation.</returns>
+        /// <param name="uri">The uniform resource identifier (URI) to the REST  WEB resource.</param>
+        /// <param name="xml">The XML string to send.</param>
+        /// <returns>Returns <see cref="HttpResponseMessage"/> task object representing the asynchronous operation.</returns>
         public Task<HttpResponseMessage> SendXmlRequest(HttpMethod method, Uri uri, string xml)
         {
             var client = EnsureHttpClient();

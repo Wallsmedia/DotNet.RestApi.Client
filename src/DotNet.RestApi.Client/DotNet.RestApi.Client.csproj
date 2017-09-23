@@ -8,17 +8,17 @@
     <Authors>Wallsmedia Ltd</Authors>
     <Company>Wallsmedia Ltd</Company>
     <Product></Product>
-    <Description>Dot NET Core Web Rest API simple client.</Description>
+    <Description>Dot NET Core REST API simple client.</Description>
     <Copyright>2017-* © Wallsmedia LTD. All rights reserved.</Copyright>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client.git</RepositoryUrl>
-    <PackageReleaseNotes>Release:  net452; netstandard1.6; netstandard2.0; includes gzip response support.</PackageReleaseNotes>
-    <PackageTags>rest http client web service</PackageTags>
-    <Version>2.0.1</Version>
-    <AssemblyVersion>2.0.1</AssemblyVersion>
-    <FileVersion>2.0.1</FileVersion>
+    <PackageReleaseNotes>Release: net452; netstandard1.6; netstandard2.0; includes gzip response support.</PackageReleaseNotes>
+    <PackageTags>rest http client gzip web service</PackageTags>
+    <Version>2.0.2</Version>
+    <AssemblyVersion>2.0.2</AssemblyVersion>
+    <FileVersion>2.0.2</FileVersion>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 

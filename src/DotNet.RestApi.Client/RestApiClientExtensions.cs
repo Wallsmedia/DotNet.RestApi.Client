@@ -24,21 +24,21 @@ using System.Xml.Linq;
 namespace DotNet.RestApi.Client
 {
     /// <summary>
-    /// Simple WEB Rest API client class extensions and helpers.
+    /// Simple Rest API client extension class.
     /// </summary>
     public static class RestApiClientExtensions
     {
         /// <summary>
-        /// Process response if it has gzip compression.
+        /// Process response if it has the gzip compression encoding.
         /// </summary>
         /// <param name="response">The HTTP response message including the status code and data.</param>
         /// <returns> The task object representing the asynchronous operation.</returns>
         public static async Task<string> ReadContentAsStringGzip(this HttpResponseMessage response)
         {
-            // Check whether response is compressed
+            // Check whether a response is compressed
             if (response.Content.Headers.ContentEncoding.Any(x => x.ToLower() == "gzip"))
             {
-                // Decompress gzip stream
+                // Decompress a gzip stream
                 using (var s = await response.Content.ReadAsStreamAsync())
                 {
                     using (var decompressed = new GZipStream(s, CompressionMode.Decompress))
@@ -54,7 +54,7 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
-        /// Process response if it has gzip compression.
+        /// Process a response if it has the gzip compression encoding.
         /// </summary>
         /// <param name="response">The HTTP response message including the status code and data.</param>
         /// <returns> The stream that represents the content .</returns>
@@ -63,7 +63,7 @@ namespace DotNet.RestApi.Client
             // Check whether response is compressed
             if (response.Content.Headers.ContentEncoding.Any(x => x.ToLower() == "gzip"))
             {
-                // Decompress gzip stream
+                // Decompress a gzip stream
                 var s = await response.Content.ReadAsStreamAsync();
                 return new GZipStream(s, CompressionMode.Decompress);
             }
@@ -71,7 +71,7 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
-        /// Applies the Accept-Encoding "gzip" for HTTP request. 
+        /// Applies the Accept-Encoding "gzip" header to the HTTP request. 
         /// </summary>
         /// <param name="request">The HTTP request message.</param>
         public static void ApplyAcceptEncodingSettingGZip(HttpRequestMessage request)
@@ -142,7 +142,7 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
-        /// Extracts the Data Contract XML object from the HTTP response message.
+        /// Extracts the XML object from the HTTP response message.
         /// </summary>
         /// <typeparam name="T">The expected type of the response object.</typeparam>
         /// <param name="response">The HTTP response message including the status code and dataX.</param>
@@ -189,7 +189,7 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
-        /// Extracts the XML object from the string.
+        /// Extracts the Data Contract XML object from the string.
         /// </summary>
         /// <typeparam name="T">The expected type of the response object.</typeparam>
         /// <param name="xml">The serialized object string.</param>
@@ -246,7 +246,7 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
-        /// Serialize the object into the DcXML string.
+        /// Serialize the object into the Data Contract XML string.
         /// </summary>
         /// <typeparam name="T">The object type.</typeparam>
         /// <param name="json">The instance of the object.</param>

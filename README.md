@@ -1,4 +1,4 @@
-# Dot Net Core Web Rest Api Client
+# Dot Net Core Rest Web Api Client
 ### Nuget Package: 
 https://www.nuget.org/packages/DotNet.RestApi.Client/
 
@@ -36,7 +36,7 @@ PurchaseOrder respObj = response.DeseriaseXmlResponse<PurchaseOrder>();
 
 ```
 
-Example how call with XML with using gzip:
+Example how call with using gzip:
 
 ```
 Uri baseUri = new Uri("http://webServiceHost:15002");
