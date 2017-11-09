@@ -144,7 +144,6 @@ namespace DotNet.RestApi.Client
         /// <summary>
         /// Extracts the XML object from the HTTP response message.
         /// </summary>
-        /// <typeparam name="T">The expected type of the response object.</typeparam>
         /// <param name="response">The HTTP response message including the status code and dataX.</param>
         /// <returns>XML element.</returns>
         public static XElement ParseXmlResponse(this HttpResponseMessage response)
@@ -192,7 +191,7 @@ namespace DotNet.RestApi.Client
         /// Extracts the Data Contract XML object from the string.
         /// </summary>
         /// <typeparam name="T">The expected type of the response object.</typeparam>
-        /// <param name="xml">The serialized object string.</param>
+        /// <param name="dcXml">The serialized object string.</param>
         /// <returns>The deserialized object of the type.</returns>
         public static T GetDcXmlObject<T>(string dcXml)
         {
@@ -227,7 +226,7 @@ namespace DotNet.RestApi.Client
         /// Serialize the object into the XML string.
         /// </summary>
         /// <typeparam name="T">The object type.</typeparam>
-        /// <param name="json">The instance of the object.</param>
+        /// <param name="xml">The instance of the object.</param>
         /// <returns>The serialized string.</returns>
         public static string GetXmlString<T>(T xml)
         {
@@ -249,7 +248,7 @@ namespace DotNet.RestApi.Client
         /// Serialize the object into the Data Contract XML string.
         /// </summary>
         /// <typeparam name="T">The object type.</typeparam>
-        /// <param name="json">The instance of the object.</param>
+        /// <param name="dcxml">The instance of the object.</param>
         /// <returns>The serialized string.</returns>
         public static string GetDcXmlString<T>(T dcxml)
         {

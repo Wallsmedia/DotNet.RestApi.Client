@@ -18,6 +18,7 @@ using Xunit;
 namespace RestApiClentTest
 {
     [DataContract(Namespace = "http://puchase.Interface.org/Purchase.Order")]
+    [RequestPath("res")]
     public class PurchaseOrder
     {
         public PurchaseOrder()
@@ -64,9 +65,7 @@ namespace RestApiClentTest
                 string send = RestApiClientExtensions.GetJsonString(sendObj);
                 string json = response.ReadContentAsStringGzip().Result;
                 string rest = RequestGRabber.Message;
-
-                PurchaseOrder respObj = response.DeseriaseJsonResponse<PurchaseOrder>();
-
+                
                 Assert.Equal(send, json);
                 Assert.Equal(rest, json);
                 string test = response.Headers.GetValues("CustomHeader").First();
@@ -130,7 +129,8 @@ namespace RestApiClentTest
 
                 PurchaseOrder sendObj = new PurchaseOrder();
 
-                HttpResponseMessage response = client.SendJsonRequest(HttpMethod.Post, new Uri("res", UriKind.Relative), sendObj).Result;
+                Uri relUri = new Uri(RequestPathAttribute.GetRestApiPath(sendObj), UriKind.Relative);
+                HttpResponseMessage response = client.SendJsonRequest(HttpMethod.Post, relUri, sendObj).Result;
 
                 string send = RestApiClientExtensions.GetJsonString(sendObj);
                 string json = response.Content.ReadAsStringAsync().Result;

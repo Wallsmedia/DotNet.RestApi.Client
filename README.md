@@ -30,7 +30,8 @@ RestApiClient client = new RestApiClient(baseUri, request =>
 
 PurchaseOrder sendObj = new PurchaseOrder();
 
-HttpResponseMessage response = client.SendXmlRequest(HttpMethod.Post, new Uri("res", UriKind.Relative), sendObj).Result;
+Uri relUri = new Uri(RequestPathAttribute.GetRestApiPath(sendObj), UriKind.Relative);
+HttpResponseMessage response = client.SendJsonRequest(HttpMethod.Post, relUri, sendObj).Result;
 
 PurchaseOrder respObj = response.DeseriaseXmlResponse<PurchaseOrder>();
 
@@ -76,8 +77,8 @@ Uri baseUri = new Uri("http://webServiceHost:15002");
 RestApiClient client = new RestApiClient(baseUri);
 
 PurchaseOrder sendObj = new PurchaseOrder();
-
-HttpResponseMessage response = client.SendDcXmlRequest(HttpMethod.Post, new Uri("res", UriKind.Relative), sendObj).Result;
+Uri relUri = new Uri(RequestPathAttribute.GetRestApiPath(sendObj), UriKind.Relative);
+HttpResponseMessage response = client.SendJsonRequest(HttpMethod.Post, relUri, sendObj).Result;
 
 PurchaseOrder respObj = response.DeseriaseDcXmlResponse<PurchaseOrder>();
 
@@ -87,7 +88,8 @@ Where the Models:
 
 ```
    [DataContract (Namespace ="http://puchase.Interface.org/Purchase.Order")]
-    public class PurchaseOrder
+   [RequestPath("res")]
+   public class PurchaseOrder
     {
         public PurchaseOrder()
         {
