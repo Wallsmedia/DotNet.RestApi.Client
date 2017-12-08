@@ -16,7 +16,6 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
 using System.Net.Http.Headers;
 using System;
 using System.Xml.Linq;
@@ -110,6 +109,22 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
+        /// Asynchronously extracts the JSON object from the HTTP response message.
+        /// </summary>
+        /// <typeparam name="T">The expected type of the response object.</typeparam>
+        /// <param name="response">The HTTP response message including the status code and data.</param>
+        /// <returns>The deserialized object of the type.</returns>
+        public static async Task<T> DeseriaseJsonResponseAsync<T>(this HttpResponseMessage response)
+        {
+            string respStr = await response.ReadContentAsStringGzip();
+            if (!string.IsNullOrWhiteSpace(respStr))
+            {
+                return GetJsonObject<T>(respStr);
+            }
+            return default(T);
+        }
+
+        /// <summary>
         /// Extracts the XML object from the HTTP response message.
         /// </summary>
         /// <typeparam name="T">The expected type of the response object.</typeparam>
@@ -118,6 +133,22 @@ namespace DotNet.RestApi.Client
         public static T DeseriaseXmlResponse<T>(this HttpResponseMessage response)
         {
             string respStr = response.ReadContentAsStringGzip().Result;
+            if (!string.IsNullOrWhiteSpace(respStr))
+            {
+                return GetXmlObject<T>(respStr);
+            }
+            return default(T);
+        }
+
+        /// <summary>
+        /// Asynchronously extracts the XML object from the HTTP response message.
+        /// </summary>
+        /// <typeparam name="T">The expected type of the response object.</typeparam>
+        /// <param name="response">The HTTP response message including the status code and data.</param>
+        /// <returns>The deserialized object of the type.</returns>
+        public static async Task<T> DeseriaseXmlResponseAsync<T>(this HttpResponseMessage response)
+        {
+            string respStr = await response.ReadContentAsStringGzip();
             if (!string.IsNullOrWhiteSpace(respStr))
             {
                 return GetXmlObject<T>(respStr);
@@ -142,6 +173,22 @@ namespace DotNet.RestApi.Client
         }
 
         /// <summary>
+        /// Asynchronously extracts the Data Contract XML object from the HTTP response message.
+        /// </summary>
+        /// <typeparam name="T">The expected type of the response object.</typeparam>
+        /// <param name="response">The HTTP response message including the status code and data.</param>
+        /// <returns>The deserialized object of the type.</returns>
+        public static async Task<T> DeseriaseDcXmlResponseAsync<T>(this HttpResponseMessage response)
+        {
+            string respStr = await response.ReadContentAsStringGzip();
+            if (!string.IsNullOrWhiteSpace(respStr))
+            {
+                return GetDcXmlObject<T>(respStr);
+            }
+            return default(T);
+        }
+
+        /// <summary>
         /// Extracts the XML object from the HTTP response message.
         /// </summary>
         /// <param name="response">The HTTP response message including the status code and dataX.</param>
@@ -150,7 +197,20 @@ namespace DotNet.RestApi.Client
         {
             using (var respStr = response.ReadContentAsStreamGzip().Result)
             {
-                return  XElement.Load(respStr);
+                return XElement.Load(respStr);
+            }
+        }
+
+        /// <summary>
+        /// Asynchronously extracts the XML object from the HTTP response message.
+        /// </summary>
+        /// <param name="response">The HTTP response message including the status code and dataX.</param>
+        /// <returns>XML element.</returns>
+        public static async Task<XElement> ParseXmlResponseAsync(this HttpResponseMessage response)
+        {
+            using (var respStr = await response.ReadContentAsStreamGzip())
+            {
+                return XElement.Load(respStr);
             }
         }
 
