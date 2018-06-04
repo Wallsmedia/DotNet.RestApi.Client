@@ -1,8 +1,8 @@
 ﻿// \\     |/\  /||
 //  \\ \\ |/ \/ ||
 //   \//\\/|  \ || 
-// Copyright © Alexander Paskhin 2013-2017. All rights reserved.
-// Wallsmedia LTD 2015-2017:{Alexander Paskhin}
+// Copyright © Alexander Paskhin 2013-2018. All rights reserved.
+// Wallsmedia LTD 2015-2018:{Alexander Paskhin}
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Simple Rest API Client
 // Dot NET Core Rest API client
@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace DotNet.RestApi.Client
 {
@@ -135,8 +136,8 @@ namespace DotNet.RestApi.Client
             request.Headers.Accept.Add(ApplicationJsonQ);
             request.Method = method;
             request.RequestUri = uri;
-            request.Content = new StringContent(json);
-            request.Content.Headers.ContentType = ApplicationJson;
+            request.Content = new StringContent(json, Encoding.UTF8, ApplicationJson.MediaType);
+            //request.Content.Headers.ContentType = ApplicationJson;
             _configureRequst?.Invoke(request);
             return client.SendAsync(request, CancellationTokenSource.Token);
         }
@@ -155,8 +156,8 @@ namespace DotNet.RestApi.Client
             request.Headers.Accept.Add(ApplicationXmlQ);
             request.Method = method;
             request.RequestUri = uri;
-            request.Content = new StringContent(xml);
-            request.Content.Headers.ContentType = ApplicationXml;
+            request.Content = new StringContent(xml, Encoding.UTF8, ApplicationXml.MediaType);
+            //request.Content.Headers.ContentType = ApplicationXml;
             _configureRequst?.Invoke(request);
             return client.SendAsync(request, CancellationTokenSource.Token);
         }
