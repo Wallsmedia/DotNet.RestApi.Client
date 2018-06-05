@@ -136,7 +136,10 @@ namespace DotNet.RestApi.Client
             request.Headers.Accept.Add(ApplicationJsonQ);
             request.Method = method;
             request.RequestUri = uri;
-            request.Content = new StringContent(json, Encoding.UTF8, ApplicationJson.MediaType);
+            if (method != HttpMethod.Get)
+            {
+                request.Content = new StringContent(json, Encoding.UTF8, ApplicationJson.MediaType);
+            }
             //request.Content.Headers.ContentType = ApplicationJson;
             _configureRequst?.Invoke(request);
             return client.SendAsync(request, CancellationTokenSource.Token);
@@ -156,7 +159,10 @@ namespace DotNet.RestApi.Client
             request.Headers.Accept.Add(ApplicationXmlQ);
             request.Method = method;
             request.RequestUri = uri;
-            request.Content = new StringContent(xml, Encoding.UTF8, ApplicationXml.MediaType);
+            if (method != HttpMethod.Get)
+            {
+                request.Content = new StringContent(xml, Encoding.UTF8, ApplicationXml.MediaType);
+            }
             //request.Content.Headers.ContentType = ApplicationXml;
             _configureRequst?.Invoke(request);
             return client.SendAsync(request, CancellationTokenSource.Token);

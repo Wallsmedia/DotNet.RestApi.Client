@@ -16,9 +16,9 @@
     <RepositoryUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client.git</RepositoryUrl>
     <PackageReleaseNotes>Singed assembly. Release: netstandard2.0; includes gzip response support; async extensions;</PackageReleaseNotes>
     <PackageTags>rest http client gzip web service restapi restweb</PackageTags>
-    <Version>2.3.0</Version>
-    <AssemblyVersion>2.3.0</AssemblyVersion>
-    <FileVersion>2.3.0</FileVersion>
+    <Version>2.3.1</Version>
+    <AssemblyVersion>2.3.1</AssemblyVersion>
+    <FileVersion>2.3.1</FileVersion>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
