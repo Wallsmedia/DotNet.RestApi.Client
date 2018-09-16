@@ -1,11 +1,11 @@
 ﻿// \\     |/\  /||
 //  \\ \\ |/ \/ ||
 //   \//\\/|  \ || 
-// Copyright © Alexander Paskhin 2013-2016. All rights reserved.
-// Wallsmedia LTD 2015-2017:{Alexander Paskhin}
-
-//
-// Process Manager Solution Client
+// Copyright © Alexander Paskhin 2013-2018. All rights reserved.
+// Wallsmedia LTD 2015-2018:{Alexander Paskhin}
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Simple Rest API Client
+// Dot NET Core Rest API client
 
 using System;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace DotNet.RestApi.Client
     /// <summary>
     /// DEfines the Uri path for Web Rest Api request
     /// </summary>
-    [System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
     public class RequestPathAttribute : Attribute
     {
         /// <summary>
@@ -39,8 +39,7 @@ namespace DotNet.RestApi.Client
         /// <returns></returns>
         public static string GetRestApiPath(object restRequest)
         {
-            var attribute = restRequest.GetType().GetCustomAttributes(typeof(RequestPathAttribute),true).FirstOrDefault() as RequestPathAttribute;
-            if (attribute != null)
+            if (restRequest.GetType().GetCustomAttributes(typeof(RequestPathAttribute),true).FirstOrDefault() is RequestPathAttribute attribute)
             {
                 return attribute.RestApiPath;
             }

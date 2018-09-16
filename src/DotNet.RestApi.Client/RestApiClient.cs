@@ -1,4 +1,5 @@
 ﻿// \\     |/\  /||
+// \\     |/\  /||
 //  \\ \\ |/ \/ ||
 //   \//\\/|  \ || 
 // Copyright © Alexander Paskhin 2013-2018. All rights reserved.
@@ -19,7 +20,7 @@ namespace DotNet.RestApi.Client
     /// <summary>
     /// Simple REST API client.
     /// </summary>
-    public class RestApiClient : IDisposable
+    public class RestApiClient : IDisposable, IRestApiClient
     {
         public static readonly MediaTypeHeaderValue ApplicationJson = MediaTypeHeaderValue.Parse("application/json");
         public static readonly MediaTypeWithQualityHeaderValue ApplicationJsonQ = MediaTypeWithQualityHeaderValue.Parse("application/json");
@@ -29,7 +30,7 @@ namespace DotNet.RestApi.Client
 
         Uri _baseUri;
         HttpClient _client;
-        Action<HttpRequestMessage> _configureRequst;
+        public Action<HttpRequestMessage> ConfigureHttpRequstMessage { get; set; }
 
         /// <summary>
         /// Cancellation token source. It can be used to cancel send operation.
@@ -45,12 +46,22 @@ namespace DotNet.RestApi.Client
         /// <summary>
         /// Constructs the simple Rest WEB API client.
         /// </summary>
+        /// <param name="httpClient">The external HttpClient.</param>
+        public RestApiClient(HttpClient httpClient)
+        {
+            Client = httpClient ?? throw new NullReferenceException(nameof(httpClient));
+            _disposedValue = true;
+        }
+
+        /// <summary>
+        /// Constructs the simple Rest WEB API client.
+        /// </summary>
         /// <param name="baseUri">The base Uri to the WEB API service</param>
         /// <param name="configureRequst">The optional conflagration delegate for the request message.</param>
         public RestApiClient(Uri baseUri, Action<HttpRequestMessage> configureRequst = null)
         {
             _baseUri = baseUri;
-            _configureRequst = configureRequst;
+            ConfigureHttpRequstMessage = configureRequst;
         }
 
         /// <summary>
@@ -141,7 +152,7 @@ namespace DotNet.RestApi.Client
                 request.Content = new StringContent(json, Encoding.UTF8, ApplicationJson.MediaType);
             }
             //request.Content.Headers.ContentType = ApplicationJson;
-            _configureRequst?.Invoke(request);
+            ConfigureHttpRequstMessage?.Invoke(request);
             return client.SendAsync(request, CancellationTokenSource.Token);
         }
 
@@ -164,22 +175,22 @@ namespace DotNet.RestApi.Client
                 request.Content = new StringContent(xml, Encoding.UTF8, ApplicationXml.MediaType);
             }
             //request.Content.Headers.ContentType = ApplicationXml;
-            _configureRequst?.Invoke(request);
+            ConfigureHttpRequstMessage?.Invoke(request);
             return client.SendAsync(request, CancellationTokenSource.Token);
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _disposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
                     Client?.Dispose();
                 }
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 

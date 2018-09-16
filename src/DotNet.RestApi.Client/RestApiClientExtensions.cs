@@ -1,8 +1,8 @@
 ﻿// \\     |/\  /||
 //  \\ \\ |/ \/ ||
 //   \//\\/|  \ || 
-// Copyright © Alexander Paskhin 2013-2017. All rights reserved.
-// Wallsmedia LTD 2015-2017:{Alexander Paskhin}
+// Copyright © Alexander Paskhin 2013-2018. All rights reserved.
+// Wallsmedia LTD 2015-2018:{Alexander Paskhin}
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Simple Rest API Client
 // Dot NET Core Rest API client
