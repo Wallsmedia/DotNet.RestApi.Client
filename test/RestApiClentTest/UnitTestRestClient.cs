@@ -64,7 +64,7 @@ namespace RestApiClentTest
 
                 string send = RestApiClientExtensions.GetJsonString(sendObj);
                 string json = response.ReadContentAsStringGzip().Result;
-                string rest = RequestGRabber.Message;
+                string rest = host.Message;
                 
                 Assert.Equal(send, json);
                 Assert.Equal(rest, json);
@@ -99,7 +99,7 @@ namespace RestApiClentTest
 
                 string send = RestApiClientExtensions.GetJsonString(sendObj);
                 string json = response.Content.ReadAsStringAsync().Result;
-                string rest = RequestGRabber.Message;
+                string rest = host.Message;
 
                 PurchaseOrder respObj = response.DeseriaseJsonResponse<PurchaseOrder>();
 
@@ -134,7 +134,7 @@ namespace RestApiClentTest
 
                 string send = RestApiClientExtensions.GetJsonString(sendObj);
                 string json = response.Content.ReadAsStringAsync().Result;
-                string rest = RequestGRabber.Message;
+                string rest = host.Message;
 
                 PurchaseOrder respObj = response.DeseriaseJsonResponse<PurchaseOrder>();
 
@@ -166,7 +166,7 @@ namespace RestApiClentTest
 
                 string send = RestApiClientExtensions.GetXmlString(sendObj);
                 string xml = response.Content.ReadAsStringAsync().Result;
-                string rest = RequestGRabber.Message;
+                string rest = host.Message;
 
                 Assert.Equal(send, xml);
                 Assert.Equal(rest, xml);
@@ -194,7 +194,7 @@ namespace RestApiClentTest
 
                 string send = RestApiClientExtensions.GetDcXmlString(sendObj);
                 string xml = response.Content.ReadAsStringAsync().Result;
-                string rest = RequestGRabber.Message;
+                string rest = host.Message;
 
                 Assert.Equal(send, xml);
                 Assert.Equal(rest, xml);

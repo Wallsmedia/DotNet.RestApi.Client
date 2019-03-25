@@ -16,35 +16,58 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
 
 namespace RestApiClentTest
 {
     public class TestWebHost : IDisposable
     {
-        public IWebHost Host { get; set; }
+        public IHost Host2 { get; set; }
+        public string Message { get; private set; }
+
+
         public void StarWebHost(string serverUrl = "http://localhost:15000")
         {
-            var host = new WebHostBuilder()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseUrls(serverUrl)
-                .UseStartup<Startup>()
-                .UseKestrel()
-                .Build();
+
+            var host = Host.CreateDefaultBuilder()
+              .ConfigureServices(services =>
+                services.AddResponseCompression()
+                )
+                .ConfigureWebHost(builder =>
+              {
+                  builder.UseKestrel()
+                  .UseUrls(serverUrl)
+                  .Configure(app =>
+                  {
+                      app.UseResponseCompression();
+                      app.Run( async (context) =>
+                      {
+                          foreach (var h in context.Request.Headers)
+                          {
+                              context.Response.Headers.Add(h);
+                          }
+                          MemoryStream ms = new MemoryStream();
+                          await context.Request.Body.CopyToAsync(ms);
+                          StreamReader sr = new StreamReader(ms);
+                          ms.Position = 0;
+                          Message = sr.ReadToEnd();
+                          ms.Position = 0;
+                          context.Response.StatusCode = StatusCodes.Status200OK;
+                          await ms.CopyToAsync(context.Response.Body);
+                      });
+                  });
+              })
+              .Build();
+            Host2 = host;
             host.Start();
         }
 
-        public class Startup
-        {
-            public void ConfigureServices(IServiceCollection services)
-            {
-                services.AddResponseCompression();
-            }
-            public void Configure(IApplicationBuilder app)
-            {
-                app.UseResponseCompression();
-                app.UseMiddleware<RequestGRabber>();
-            }
-        }
+
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
@@ -55,7 +78,7 @@ namespace RestApiClentTest
             {
                 if (disposing)
                 {
-                    Host?.Dispose();
+                    Host2?.Dispose();
                 }
 
                 disposedValue = true;
@@ -68,46 +91,5 @@ namespace RestApiClentTest
         }
         #endregion
 
-
-
-    }
-
-    internal class RequestGRabber
-    {
-
-        private readonly RequestDelegate _next;
-        public static HttpContext HttpContext { get; set; }
-        public static string Message { get; set; }
-        public RequestGRabber(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public Task Invoke(HttpContext context)
-        {
-            try
-            {
-                foreach (var h in context.Request.Headers)
-                {
-                    context.Response.Headers.Add(h);
-                }
-
-                MemoryStream ms = new MemoryStream();
-                context.Request.Body.CopyTo(ms);
-                StreamReader sr = new StreamReader(ms);
-                ms.Position = 0;
-                Message = sr.ReadToEnd();
-                ms.Position = 0;
-                ms.CopyTo(context.Response.Body);
-                context.Response.StatusCode = StatusCodes.Status200OK;
-                //await _next(context);
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-            return Task.CompletedTask;
-        }
     }
 }
