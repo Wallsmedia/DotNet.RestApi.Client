@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28714.193
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet.RestApi.Client", "src\DotNet.RestApi.Client\DotNet.RestApi.Client.csproj", "{C2E20E4B-3320-410E-9F68-32883AFE271C}"
 EndProject
@@ -9,10 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5F245AC6-6F9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B2872CC3-C97C-4B2C-B25A-5F236A14E69E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiClentTest", "test\RestApiClentTest\RestApiClentTest.csproj", "{59910208-A4FD-4479-9E62-2B02397795AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestApiClentTest", "test\RestApiClentTest\RestApiClentTest.csproj", "{59910208-A4FD-4479-9E62-2B02397795AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C1701487-3428-4F37-B06B-5D2F03886D49}"
 	ProjectSection(SolutionItems) = preProject
+		NuGet.config = NuGet.config
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -37,5 +38,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C2E20E4B-3320-410E-9F68-32883AFE271C} = {5F245AC6-6F99-45AA-BCD3-5FE4D839109A}
 		{59910208-A4FD-4479-9E62-2B02397795AF} = {B2872CC3-C97C-4B2C-B25A-5F236A14E69E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {751768A6-EBB7-4F8F-B55A-346D2DA60421}
 	EndGlobalSection
 EndGlobal

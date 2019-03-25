@@ -22,7 +22,7 @@ namespace RestApiClentTest
     public class TestWebHost : IDisposable
     {
         public IWebHost Host { get; set; }
-        public void StarWebHost(string serverUrl = "http://*:15000")
+        public void StarWebHost(string serverUrl = "http://localhost:15000")
         {
             var host = new WebHostBuilder()
                 .UseContentRoot(Directory.GetCurrentDirectory())

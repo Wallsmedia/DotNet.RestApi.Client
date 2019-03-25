@@ -1,6 +1,9 @@
 # Dot Net Core Rest Web Api Client
 The convenient Web Rest Api Client for the Rest Web Service at the Docker Container. 
 
+#### Version 3.0.0
+-Add support of .Net Core 3.0
+
 #### Version 2.4.0
 - Add support of IHttpClientFactory 
 - Add support of IHttpClientFactory 
