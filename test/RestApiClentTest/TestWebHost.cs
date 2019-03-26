@@ -1,27 +1,19 @@
 ﻿// \\     |/\  /||
 //  \\ \\ |/ \/ ||
 //   \//\\/|  \ || 
-// Copyright © Alexander Paskhin 2013-2017. All rights reserved.
-// Wallsmedia LTD 2015-2017:{Alexander Paskhin}
+// Copyright © Alexander Paskhin 2013-2019. All rights reserved.
+// Wallsmedia LTD 2015-2019:{Alexander Paskhin}
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Tests of Simple Rest API Client
 // DotNET Core Rest API client
 
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace RestApiClentTest
 {

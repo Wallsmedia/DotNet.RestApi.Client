@@ -152,7 +152,7 @@ namespace RestApiClentTest
         {
             using (TestWebHost host = new TestWebHost())
             {
-                host.StarWebHost("http://localhost:15002");
+                host.StarWebHost("http://*:15002");
                 Thread.Sleep(1000);
                 Uri baseUri = new Uri("http://localhost:15002");
 
