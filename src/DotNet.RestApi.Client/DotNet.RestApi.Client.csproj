@@ -9,7 +9,7 @@
     <Company>Wallsmedia Ltd</Company>
     <Product></Product>
     <Description>Dot NET Core REST API simple client.</Description>
-    <Copyright>2018-* © Wallsmedia LTD. All rights reserved.</Copyright>
+    <Copyright>2019-* © Wallsmedia LTD. All rights reserved.</Copyright>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
@@ -33,10 +33,7 @@
     <PackageOutputPath>../../.nupkgs</PackageOutputPath>
   </PropertyGroup>
 
-  
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-  </ItemGroup>
+
 
   
 </Project>

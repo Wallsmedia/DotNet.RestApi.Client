@@ -1,8 +1,8 @@
-﻿// \\     |/\  /||
+// \\     |/\  /||
 //  \\ \\ |/ \/ ||
 //   \//\\/|  \ || 
-// Copyright © Alexander Paskhin 2013-2018. All rights reserved.
-// Wallsmedia LTD 2015-2018:{Alexander Paskhin}
+// Copyright © Alexander Paskhin 2013-2019. All rights reserved.
+// Wallsmedia LTD 2015-2019:{Alexander Paskhin}
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Simple Rest API Client
 // Dot NET Core Rest API client
@@ -12,7 +12,7 @@ using System.Xml;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using System.IO;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.IO.Compression;
 using System.Linq;
@@ -222,13 +222,9 @@ namespace DotNet.RestApi.Client
         /// <returns>The deserialized object of the type.</returns>
         public static T GetJsonObject<T>(string json)
         {
-            using (var str = new StringReader(json))
-            using (var jsonReader = new JsonTextReader(str))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                T res = (T)serializer.Deserialize(jsonReader, typeof(T));
-                return res;
-            }
+            T res = (T)JsonSerializer.Deserialize(json, typeof(T));
+            return res;
+
         }
 
         /// <summary>
@@ -272,13 +268,7 @@ namespace DotNet.RestApi.Client
         /// <returns>The serialized string.</returns>
         public static string GetJsonString<T>(T json)
         {
-            string serialized;
-            using (StringWriter ms = new StringWriter())
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(ms, json);
-                serialized = ms.ToString();
-            }
+            string serialized = JsonSerializer.Serialize(json);
             return serialized;
         }
 
