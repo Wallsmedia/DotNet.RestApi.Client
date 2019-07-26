@@ -12,7 +12,7 @@ using System.Xml;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using System.IO;
-using System.Text.Json;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.IO.Compression;
 using System.Linq;
@@ -222,9 +222,13 @@ namespace DotNet.RestApi.Client
         /// <returns>The deserialized object of the type.</returns>
         public static T GetJsonObject<T>(string json)
         {
-            T res = (T)JsonSerializer.Deserialize(json, typeof(T));
-            return res;
-
+            using (var str = new StringReader(json))
+            using (var jsonReader = new JsonTextReader(str))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                T res = (T)serializer.Deserialize(jsonReader, typeof(T));
+                return res;
+            }
         }
 
         /// <summary>
@@ -268,7 +272,13 @@ namespace DotNet.RestApi.Client
         /// <returns>The serialized string.</returns>
         public static string GetJsonString<T>(T json)
         {
-            string serialized = JsonSerializer.Serialize(json);
+            string serialized;
+            using (StringWriter ms = new StringWriter())
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(ms, json);
+                serialized = ms.ToString();
+            }
             return serialized;
         }
 
