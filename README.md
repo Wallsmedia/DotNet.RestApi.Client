@@ -24,7 +24,6 @@ Add to the configuration initialization:
 ``` C#
 .ConfigureServices((webHostBuilderContext, services) =>
   {
-        services.AddHttpClient();
         services.AddHttpClient<RestApiClient>();
    })
 ```

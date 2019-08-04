@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;netstandard2.0;</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -9,12 +9,12 @@
     <Company>Wallsmedia Ltd</Company>
     <Product></Product>
     <Description>Dot NET Core REST API simple client.</Description>
-    <Copyright>2019-* © Wallsmedia LTD. All rights reserved.</Copyright>
+    <Copyright>netstandard2.0 © Wallsmedia LTD. All rights reserved.</Copyright>
     <PackageLicenseUrl>http://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client.git</RepositoryUrl>
-    <PackageReleaseNotes>Singed assembly. Release: netstandard2.0; includes gzip response support; async extensions;</PackageReleaseNotes>
+    <PackageReleaseNotes>Singed assembly. Release: netstandard2.0;netcoreapp3.0; includes gzip response support; async extensions;</PackageReleaseNotes>
     <PackageTags>rest http client gzip web service restapi restweb</PackageTags>
     <Version>3.0.0</Version>
     <AssemblyVersion>3.0.0</AssemblyVersion>
