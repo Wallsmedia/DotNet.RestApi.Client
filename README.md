@@ -1,6 +1,14 @@
 # Dot Net Core Rest Web Api Client
 The convenient Web Rest Api Client for the Rest Web Service at the Docker Container. 
 
+### Development Supported by JetBrains Open Source Program:
+
+<a href="https://www.jetbrains.com/?from=XmlResult"> <img src="https://github.com/Wallsmedia/XmlResult/blob/master/Logo/rider/logo.png?raw=true" Width="40p" /></a> **Fast & powerful,
+cross platform .NET IDE**
+
+<a href="https://www.jetbrains.com/?from=XmlResult"> <img src="https://github.com/Wallsmedia/XmlResult/blob/master/Logo/resharper/logo.png?raw=true" Width="40p" /></a> **The Visual Studio Extension for .NET Developers**
+
+
 #### Version 2.4.0
 - Add support of IHttpClientFactory 
 - Add support of IHttpClientFactory 
