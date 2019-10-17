@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.0;netstandard2.0;</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.0;netstandard2.1;</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -14,7 +14,7 @@
     <PackageProjectUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/Wallsmedia/DotNet.RestApi.Client.git</RepositoryUrl>
-    <PackageReleaseNotes>Singed assembly. Release: netstandard2.0;netcoreapp3.0; includes gzip response support; async extensions;</PackageReleaseNotes>
+    <PackageReleaseNotes>Singed assembly. Release: netstandard2.1;netcoreapp3.0; includes gzip response support; async extensions;</PackageReleaseNotes>
     <PackageTags>rest http client gzip web service restapi restweb</PackageTags>
     <Version>3.0.0</Version>
     <AssemblyVersion>3.0.0</AssemblyVersion>
@@ -34,12 +34,12 @@
     <PackageOutputPath>../../.nupkgs</PackageOutputPath>
   </PropertyGroup>
 
-  
+
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
-  
+
   <ItemGroup>
     <None Include="..\..\LICENSE.txt">
       <Visible>false</Visible>
@@ -48,5 +48,5 @@
     </None>
   </ItemGroup>
 
-  
+
 </Project>

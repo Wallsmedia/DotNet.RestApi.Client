@@ -3,12 +3,11 @@ The convenient Web Rest Api Client for the Rest Web Service at the Docker Contai
 
 #### Version 3.0.0
 -Add support of .Net Core 3.0
+-Add support of .Net Standard 2.1
 
 #### Version 2.4.0
 - Add support of IHttpClientFactory 
 - Add support of IHttpClientFactory 
-
-
 
 ### Nuget Package: 
 https://www.nuget.org/packages/DotNet.RestApi.Client/
@@ -21,7 +20,7 @@ https://www.nuget.org/packages/DotNet.RestApi.Client/
 
 Add to the configuration initialization:
 
-``` C#
+``` c#
 .ConfigureServices((webHostBuilderContext, services) =>
   {
         services.AddHttpClient<RestApiClient>();
@@ -31,7 +30,7 @@ Add to the configuration initialization:
 ##### Using "Polly" 
 - Include the nuget package into the project [Microsoft.Extensions.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Polly)
 
-``` C#
+``` c#
 .ConfigureServices((webHostBuilderContext, services) =>
   {
         services.AddTransient<RestApiClient>();
@@ -46,7 +45,7 @@ For more details of using Polly use link below:
 
 In the controller:
 
-``` C#
+``` c#
     private RestApiClient _restApiClient;
 
     /// <summary>
@@ -89,7 +88,7 @@ In the controller:
 
 ## Example how to call with JSON:
 
-```
+``` c#
 Uri baseUri = new Uri("http://webServiceHost:15002");
 RestApiClient client = new RestApiClient(baseUri);
 
@@ -103,7 +102,7 @@ PurchaseOrder respObj = response.DeseriaseJsonResponse<PurchaseOrder>();
 
 ## Example how to call with XML:
 
-```
+``` c#
 Uri baseUri = new Uri("http://webServiceHost:15002");
 RestApiClient client = new RestApiClient(baseUri, request =>
    {
@@ -121,7 +120,7 @@ PurchaseOrder respObj = response.DeseriaseXmlResponse<PurchaseOrder>();
 
 ## Example how to call with using gzip:
 
-```
+``` c#
 Uri baseUri = new Uri("http://webServiceHost:15002");
 RestApiClient client = new RestApiClient(baseUri, request =>
    {
@@ -137,7 +136,8 @@ PurchaseOrder respObj = response.DeseriaseXmlResponse<PurchaseOrder>();
 
 ```
 #### Where Web Service should have:
-```
+
+``` c#
  public void ConfigureServices(IServiceCollection services)
  {
  ...
@@ -154,7 +154,7 @@ PurchaseOrder respObj = response.DeseriaseXmlResponse<PurchaseOrder>();
 
 ## Example how to call with Data Contract XML:
 
-```
+``` c#
 Uri baseUri = new Uri("http://webServiceHost:15002");
 RestApiClient client = new RestApiClient(baseUri);
 
@@ -168,9 +168,9 @@ PurchaseOrder respObj = response.DeseriaseDcXmlResponse<PurchaseOrder>();
 
 #### Where the Models:
 
-```
-   [DataContract (Namespace ="http://puchase.Interface.org/Purchase.Order")]
-   [RequestPath("res")]
+``` c#
+   [DataContract (Namespace ="http://purchase.Interface.org/Purchase.Order")]
+   [RequestPath("add/purchase/order")]
    public class PurchaseOrder
     {
         public PurchaseOrder()
@@ -185,7 +185,7 @@ PurchaseOrder respObj = response.DeseriaseDcXmlResponse<PurchaseOrder>();
     }
 
 
-    [DataContract(Namespace = "http://puchase.Interface.org/Purchase.Order.Address")]
+    [DataContract(Namespace = "http://purchase.Interface.org/Purchase.Order.Address")]
     public class Address
     {
         [DataMember]
