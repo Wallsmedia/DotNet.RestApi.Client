@@ -1,6 +1,10 @@
 # Dot Net Core Rest Web Api Client
 The convenient Web Rest Api Client for the Rest Web Service at the Docker Container. 
 
+#### Version 3.1.0
+- Add support of .Net Core 3.1
+- Add support of .Net Standard 2.1
+
 #### Version 3.0.0
 - Add support of .Net Core 3.0
 - Add support of .Net Standard 2.1
@@ -14,10 +18,11 @@ https://www.nuget.org/packages/DotNet.RestApi.Client/
 
 ### Development Supported by JetBrains Open Source Program:
 
-<a href="https://www.jetbrains.com/?from=XmlResult"> <img src="https://github.com/Wallsmedia/XmlResult/blob/master/Logo/rider/logo.png?raw=true" Width="40p" /></a> **Fast & powerful,
+
+**Rider** <a href="https://www.jetbrains.com/?from=XmlResult"> <img src="https://github.com/Wallsmedia/XmlResult/blob/master/Logo/rider/logo.png?raw=true" Width="40p" /></a> **Fast & powerful,
 cross platform .NET IDE**
 
-<a href="https://www.jetbrains.com/?from=XmlResult"> <img src="https://github.com/Wallsmedia/XmlResult/blob/master/Logo/resharper/logo.png?raw=true" Width="40p" /></a> **The Visual Studio Extension for .NET Developers**
+**ReSharper** <a href="https://www.jetbrains.com/?from=XmlResult"> <img src="https://github.com/Wallsmedia/XmlResult/blob/master/Logo/resharper/logo.png?raw=true" Width="40p" /></a> **The Visual Studio Extension for .NET Developers**
 
 ## Example of using with IHttpClientFactory ASP.NET Core
 
