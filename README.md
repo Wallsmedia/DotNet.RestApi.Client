@@ -26,7 +26,7 @@ cross platform .NET IDE**
 
 ## Example of using with IHttpClientFactory ASP.NET Core
 
-Last Release  Version 3.1.0 Working samples - https://github.com/Wallsmedia/DotNet.RestApi.Client/tree/master/samples
+Last Release  Version 3.1.0 Working samples - https://github.com/Wallsmedia/DotNet.RestApi.Client/tree/master/sample
 
 - Include the nuget package into the project [DotNet.RestApi.Client](https://www.nuget.org/packages/DotNet.RestApi.Client)
 
