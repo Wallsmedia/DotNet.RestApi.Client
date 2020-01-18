@@ -36,10 +36,23 @@ namespace DotNet.RestApi.Client
         /// Extracts the request path from the object.
         /// </summary>
         /// <param name="restRequest">The request object.</param>
-        /// <returns></returns>
+        /// <returns>The request path.</returns>
         public static string GetRestApiPath(object restRequest)
         {
             if (restRequest.GetType().GetCustomAttributes(typeof(RequestPathAttribute),true).FirstOrDefault() is RequestPathAttribute attribute)
+            {
+                return attribute.RestApiPath;
+            }
+            return String.Empty;
+        }
+
+        /// <summary>
+        /// Extracts the request path from the object.
+        /// </summary>
+        /// <returns>The request path.</returns>
+        public static string GetRestApiPath<T>()
+        {
+            if (typeof(T).GetCustomAttributes(typeof(RequestPathAttribute),true).FirstOrDefault() is RequestPathAttribute attribute)
             {
                 return attribute.RestApiPath;
             }

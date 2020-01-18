@@ -26,28 +26,35 @@ cross platform .NET IDE**
 
 ## Example of using with IHttpClientFactory ASP.NET Core
 
-- Include the nuget package into the project [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http)
+Last Release  Version 3.1.0 Working samples - https://github.com/Wallsmedia/DotNet.RestApi.Client/tree/master/samples
+
 - Include the nuget package into the project [DotNet.RestApi.Client](https://www.nuget.org/packages/DotNet.RestApi.Client)
 
 Add to the configuration initialization:
 
 ``` c#
-.ConfigureServices((webHostBuilderContext, services) =>
+  public void ConfigureServices(IServiceCollection services)
   {
+  ...
         services.AddHttpClient<RestApiClient>();
-   })
+  }
 ```
 
 ##### Using "Polly" 
 - Include the nuget package into the project [Microsoft.Extensions.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Polly)
 
 ``` c#
-.ConfigureServices((webHostBuilderContext, services) =>
+  public void ConfigureServices(IServiceCollection services)
   {
-        services.AddTransient<RestApiClient>();
-        services.AddHttpClient<RestApiClient>().AddTransientHttpErrorPolicy(p => p.RetryAsync(3));
-   })
-```
+  ...
+     //services.AddTransient<RestApiClient>();
+     services.AddHttpClient<RestApiClient>().AddTransientHttpErrorPolicy(p => p.RetryAsync(3, onRetry: (res, count) =>
+     {
+         // for debug demo messaging
+         Console.WriteLine($" Exception:{res.Exception.Message} count: {count}");
+     }));
+  }
+ ```
 
 For more details of using Polly use link below:
 - https://github.com/App-vNext/Polly
