@@ -16,14 +16,6 @@ The convenient Web Rest Api Client for the Rest Web Service at the Docker Contai
 ### Nuget Package: 
 https://www.nuget.org/packages/DotNet.RestApi.Client/
 
-### Development Supported by JetBrains Open Source Program:
-
-
-**Rider** <a href="https://www.jetbrains.com/?from=XmlResult"> <img src="https://github.com/Wallsmedia/XmlResult/blob/master/Logo/rider/logo.png?raw=true" Width="40p" /></a> **Fast & powerful,
-cross platform .NET IDE**
-
-**ReSharper** <a href="https://www.jetbrains.com/?from=XmlResult"> <img src="https://github.com/Wallsmedia/XmlResult/blob/master/Logo/resharper/logo.png?raw=true" Width="40p" /></a> **The Visual Studio Extension for .NET Developers**
-
 ## Example of using with IHttpClientFactory ASP.NET Core
 
 Last Release  Version 3.1.0 Working samples - https://github.com/Wallsmedia/DotNet.RestApi.Client/tree/master/sample
